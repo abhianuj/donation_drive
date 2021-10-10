@@ -4,6 +4,9 @@ import LoginSignup from './Components/LoginSignup'
 import Home from './Components/Home';
 import { AppBar, Toolbar, CssBaseline, useScrollTrigger, Slide, Button, ButtonGroup } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import FundRaisers from './Components/FundRaisers';
+import Donators from './Components/Donators';
+import StartFudraiser from './Components/StartFudraiser';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -62,9 +65,9 @@ function App() {
                     <Toolbar sx={{display: "flex", justifyContent: 'space-between'}}>
                         <a href="/" style={styles.homeButton}>D Drive</a>
                         <div style={styles.navigation}>
-                            <a href="1" style={styles.navItem}>Browse Fundraisers</a>
-                            <a href="2" style={styles.navItem}>Browse Donators</a>
-                            <a href="#howItWorks" style={styles.navItem}>How it Works</a>
+                            <a href="/fundraisers" style={styles.navItem}>Browse Fundraisers</a>
+                            <a href="/donators" style={styles.navItem}>Browse Donators</a>
+                            {/* <a href="#howItWorks" style={styles.navItem}>How it Works</a> */}
                             <Button variant="outlined" disableElevation sx={{marginLeft: '1.2rem'}}>Start a Fundraiser</Button>
                             <ButtonGroup variant="outlined" aria-label="outlined button group" sx={{marginLeft: '1.2rem'}}>
                                 <Button color="success"><Link style={styles.signupLoginLink} to="/auth">Login</Link></Button>
@@ -81,6 +84,15 @@ function App() {
           </Route>
           <Route path="/auth" exact>
             <LoginSignup/>
+          </Route>
+          <Route path="/fundraisers" exact>
+            <FundRaisers/>
+          </Route>
+          <Route path="/donators" exact>
+            <Donators/>
+          </Route>
+          <Route path="/fundraise" exact>
+            <StartFudraiser/>
           </Route>
         </Switch>
       </Router>
