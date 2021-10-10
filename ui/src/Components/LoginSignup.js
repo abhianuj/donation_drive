@@ -1,4 +1,4 @@
-import { TextField, Box, Tab, Button } from "@mui/material";
+import { TextField, Box, Tab, Button, Snackbar, Slide, Alert } from "@mui/material";
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import React from "react";
 
@@ -28,6 +28,10 @@ const styles={
 const LoginSignup = () => {
 
     const [value, setValue] = React.useState('1');
+    const [authSuccess, setAuthSuccess] = React.useState({
+        isSuccess: false,
+        message: '',
+    });
     const [sfName, setSfName] = React.useState({
         value: '',
         error: false,
@@ -99,9 +103,21 @@ const LoginSignup = () => {
         })
     }
 
+    //for tab change
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    //for snackBar
+    function TransitionUp(props) {
+        return <Slide {...props} direction="up" />;
+    }
+    function handleSnackBarClose(){
+        setAuthSuccess({
+            isSuccess: false,
+            message: '',
+        });
+    }
 
     const signup = () =>{
         if(!sfName.value.length) {
@@ -113,7 +129,7 @@ const LoginSignup = () => {
         if(!sEmail.value.length) {
             setSEmailData('', true, 'Please Enter an email ID');
         }
-        if(!sPassword.value.length<8){
+        if(sPassword.value.length<8){
             setSPasswordData('', true, "Password must be greater than 8 charchters");
         }
         if(!sPassword.value.length) {
@@ -122,22 +138,30 @@ const LoginSignup = () => {
 
         if(!sfName.value.error && !slName.value.error && !sPassword.value.error && !sEmail.value.error){
             //post data
+            setAuthSuccess({
+                isSuccess: true,
+                message: "Signup Successfull",
+            });  
         }
     }
 
     const login = () =>{
-        if(!lPassword.value.length<8){
-            setLPasswordData('', true, "Password must be greater than 8 charchters");
+        if(lPassword.value.length<8){
+            setLPasswordData(lPassword.value, true, "Password must be greater than 8 charchters");
         }
         if(!lPassword.value.length) {
-            setLPasswordData('', true, 'Please Enter an email ID');
+            setLPasswordData('', true, "Please enter a password");
         }
         if(!lEmail.value.length) {
-            setLEmailData('', true, "Please enter a password");
+            setLEmailData('', true, 'Please Enter an email ID');
         }
 
         if(!lEmail.value.error && !lPassword.value.error){
             //post data
+            setAuthSuccess({
+                isSuccess: true,
+                message: "Login Successfull",
+            });            
         }
     }
 
@@ -160,6 +184,7 @@ const LoginSignup = () => {
     }
 
     return (
+        <React.Fragment>
         <div style={styles.conatiner}>
             <Box sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
@@ -197,8 +222,14 @@ const LoginSignup = () => {
                         </div>
                     </TabPanel>
                 </TabContext>
-            </Box>
+            </Box>           
         </div>
+            <Snackbar open={authSuccess.isSuccess} autoHideDuration={5000} onClose={handleSnackBarClose}>
+                <Alert onClose={handleSnackBarClose} severity="success" sx={{ width: '100%' }}>
+                {authSuccess.message}
+                </Alert>
+            </Snackbar>
+        </React.Fragment>
     );
 }
  
