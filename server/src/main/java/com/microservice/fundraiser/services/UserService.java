@@ -1,6 +1,7 @@
 package com.microservice.fundraiser.services;
 
 import com.microservice.fundraiser.daos.UserRepository;
+import com.microservice.fundraiser.dtos.UserDTO;
 import com.microservice.fundraiser.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ public class UserService {
     public Optional<User> getUser(String email) {
         return userRepository.findById(email);
     }
-    public void postUser(User user) {
-        userRepository.save(user);
+    public User postUser(User user) {
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+        return userRepository.save(user);
     }
 
     public Optional<User> login(User user) {

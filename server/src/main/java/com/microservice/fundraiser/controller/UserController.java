@@ -36,9 +36,10 @@ public class UserController {
 //        }
 //    }
     @PostMapping("/api/users")
-    @ResponseStatus(code = HttpStatus.CREATED, reason = "User added")
-    public void addUser(@RequestBody User user) {
-        userService.postUser(user);
+    public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
+        UserDTO userDTO = userMapper.toDTO(userService.postUser(user));
+        userDTO.setToken(user.getToken());
+        return new ResponseEntity<>(userDTO,HttpStatus.OK);
     }
     @PostMapping("/api/users/login")
     public ResponseEntity<UserDTO> login(@RequestBody User user) {
