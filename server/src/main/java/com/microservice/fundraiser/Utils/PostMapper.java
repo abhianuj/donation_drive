@@ -4,19 +4,20 @@ import com.microservice.fundraiser.dtos.PostDTO;
 import com.microservice.fundraiser.dtos.UserDTO;
 import com.microservice.fundraiser.entities.Post;
 import com.microservice.fundraiser.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PostMapper {
+    @Autowired
+    UserMapper userMapper;
+
     public PostDTO toDTO(Post post) {
         PostDTO postDTO = new PostDTO();
-        UserDTO userDTO = new UserDTO();
-        User user = post.getNeedy();
+        UserDTO userDTO = userMapper.toDTO(post.getNeedy());
         postDTO.setCategory(post.getCategory());
         postDTO.setCause(post.getCause());
         postDTO.setId(post.getId());
-        userDTO.setName(user.getName());
-        userDTO.setEmail(user.getEmail());
         postDTO.setNeedy(userDTO);
         postDTO.setEndDate(post.getEndDate());
         postDTO.setNeededAmount(post.getNeededAmount());

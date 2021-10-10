@@ -15,7 +15,9 @@ public class User {
     @Id
     private String email;
     @Column(nullable=false)
-    private String name;
+    private String firstName;
+    @Column(nullable=false)
+    private String lastName;
     @Column(nullable=false)
     private String password;
     private String token;
