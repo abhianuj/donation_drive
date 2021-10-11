@@ -18,6 +18,12 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    public UserController(UserService userService, UserMapper userMapper)
+    {
+        this.userService = userService;
+        this.userMapper = userMapper;
+    }
     @GetMapping("/api/users")
     public List<User> getAllUser(){
         return userService.getAllUsers();
