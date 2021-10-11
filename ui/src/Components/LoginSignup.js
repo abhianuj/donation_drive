@@ -1,5 +1,7 @@
-import { TextField, Box, Tab, Button, Snackbar, Slide, Alert } from "@mui/material";
+import { TextField, Box, Tab, Button, Snackbar, Alert } from "@mui/material";
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { signup, login } from '../utils/api/services'
+import { useHistory } from "react-router-dom";
 import React from "react";
 
 const styles={
@@ -25,8 +27,9 @@ const styles={
     }
 }
 
-const LoginSignup = () => {
+const LoginSignup = (props) => {
 
+    const history = useHistory();
     const [value, setValue] = React.useState('1');
     const [authSuccess, setAuthSuccess] = React.useState({
         isSuccess: false,
@@ -103,15 +106,19 @@ const LoginSignup = () => {
         })
     }
 
+    //componentDidMount
+    React.useEffect(() => {
+        if(localStorage.getItem('token')){
+            history.push(props.onSuccessfulAuth);
+        }
+    });
+
     //for tab change
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     //for snackBar
-    function TransitionUp(props) {
-        return <Slide {...props} direction="up" />;
-    }
     function handleSnackBarClose(){
         setAuthSuccess({
             isSuccess: false,
@@ -119,7 +126,7 @@ const LoginSignup = () => {
         });
     }
 
-    const signup = () =>{
+    const signMeUp = async () =>{
         if(!sfName.value.length) {
             setSfNameData('', true, "First name can't be empty");
         }
@@ -136,16 +143,37 @@ const LoginSignup = () => {
             setSPasswordData('', true, "Please enter a password");
         }
 
-        if(!sfName.value.error && !slName.value.error && !sPassword.value.error && !sEmail.value.error){
-            //post data
-            setAuthSuccess({
-                isSuccess: true,
-                message: "Signup Successfull",
-            });  
+        if(sfName.value.length && slName.value.length && sEmail.value.length && sPassword.value.length>8){
+            let postData = {
+                firstName: sfName.value,
+                lastName : slName.value,
+                email: sEmail.value,
+                password: sPassword.value
+            }
+
+            let response = await signup(postData);
+
+            if(!response.status){
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('name', response.firstName + ' ' + response.lastName);
+                props.setAuthenticated(true);
+                setAuthSuccess({
+                    isSuccess: true,
+                    message: "Login Successfull",
+                });
+
+                navigateToOnSuccessfulAuth();
+            } else {
+                console.log(response);
+            }
         }
     }
 
-    const login = () =>{
+    const navigateToOnSuccessfulAuth = () => {
+        history.push(props.onSuccessfulAuth);
+    }
+
+    const logMeIn = async () =>{
         if(lPassword.value.length<8){
             setLPasswordData(lPassword.value, true, "Password must be greater than 8 charchters");
         }
@@ -156,12 +184,28 @@ const LoginSignup = () => {
             setLEmailData('', true, 'Please Enter an email ID');
         }
 
-        if(!lEmail.value.error && !lPassword.value.error){
-            //post data
-            setAuthSuccess({
-                isSuccess: true,
-                message: "Login Successfull",
-            });            
+        if(lEmail.value.length && lPassword.value.length>8){
+            let postData = {
+                email: lEmail.value,
+                password: lPassword.value
+            }
+
+            let response = await login(postData);
+
+            if(!response.status){
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('name', response.firstName + ' ' + response.lastName);
+                props.setAuthenticated(true);
+                setAuthSuccess({
+                    isSuccess: true,
+                    message: "Login Successfull",
+                });   
+
+                navigateToOnSuccessfulAuth();
+            } else {
+                console.log(response);
+            }
+            
         }
     }
 
@@ -205,7 +249,7 @@ const LoginSignup = () => {
                                 <TextField sx={styles.textField} type="password" label="Password*" onChange={(e)=>{setSPasswordData(e.target.value, false, '')}} variant="standard" error={sPassword.error} helperText={sPassword.errorText} value={sPassword.value} />
                             </div>
                             <div style={{display: 'flex', justifyContent: 'end', margin: '2rem 1rem 0 0 '}}>
-                                <Button variant="contained" style={styles.button} onClick={signup}>Signup</Button>
+                                <Button variant="contained" style={styles.button} onClick={signMeUp}>Signup</Button>
                             </div>
                         </div>
                     </TabPanel>
@@ -217,7 +261,7 @@ const LoginSignup = () => {
                                 <TextField sx={styles.textField} type="password" label="Password*" onChange={(e)=>{setLPasswordData(e.target.value, false, '')}} variant="standard" error={lPassword.error} helperText={lPassword.errorText} value={lPassword.value}/>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'end', margin: '1.7rem 1rem 0 0 '}}>
-                                <Button variant="contained" style={styles.button} onClick={login}>Login</Button>
+                                <Button variant="contained" style={styles.button} onClick={logMeIn}>Login</Button>
                             </div>
                         </div>
                     </TabPanel>

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import FundRaisers from './Components/FundRaisers';
 import Donators from './Components/Donators';
 import StartFudraiser from './Components/StartFudraiser';
+import React from 'react';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -56,6 +57,22 @@ const styles = {
 }
 
 function App() {
+
+  const [authenticated, setAuthenticated] = React.useState(false);
+
+  const logout = () => {
+    localStorage.clear();
+    setAuthenticated(false);
+  }
+
+  //componentDidMount
+  React.useEffect(() => {
+    if(localStorage.getItem('token')){
+      setAuthenticated(true);
+    }
+  });
+  
+
   return (
     <div className="App">
       <Router>
@@ -68,11 +85,15 @@ function App() {
                             <a href="/fundraisers" style={styles.navItem}>Browse Fundraisers</a>
                             <a href="/donators" style={styles.navItem}>Browse Donators</a>
                             {/* <a href="#howItWorks" style={styles.navItem}>How it Works</a> */}
-                            <Button variant="outlined" disableElevation sx={{marginLeft: '1.2rem'}}>Start a Fundraiser</Button>
+                            <Button variant="outlined" disableElevation sx={{marginLeft: '1.2rem'}}><Link style={{textDecoration: 'none', color: '#1976d2'}} to="/auth/fundraise">Start a Fundraiser</Link></Button>
+                            {authenticated?
+                            <Button variant="outlined" color="success" onClick={logout} disableElevation sx={{marginLeft: '1.2rem'}}><Link style={styles.signupLoginLink} to="/">Logout</Link></Button>
+                            :
                             <ButtonGroup variant="outlined" aria-label="outlined button group" sx={{marginLeft: '1.2rem'}}>
                                 <Button color="success"><Link style={styles.signupLoginLink} to="/auth">Login</Link></Button>
                                 <Button color="success"><Link style={styles.signupLoginLink} to="/auth">Sign up</Link></Button>
                             </ButtonGroup>
+                            }
                         </div>
                     </Toolbar>
                 </AppBar>
@@ -83,7 +104,10 @@ function App() {
             <Home/>
           </Route>
           <Route path="/auth" exact>
-            <LoginSignup/>
+            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/"/>
+          </Route>
+          <Route path="/auth/fundraise" exact>
+            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/fundraise"/>
           </Route>
           <Route path="/fundraisers" exact>
             <FundRaisers/>
