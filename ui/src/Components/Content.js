@@ -6,6 +6,8 @@ import ChildFriendlyOutlinedIcon from '@mui/icons-material/ChildFriendlyOutlined
 import CastForEducationOutlinedIcon from '@mui/icons-material/CastForEducationOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
+import { fundraisers } from '../utils/api/services';
+import React, { useEffect, useState } from "react";
 
 const styles = {
     recentFundraisersHeading: {
@@ -50,6 +52,17 @@ const styles = {
 }
 
 const Content = () => {
+
+    const [fundraisersData, setFundraisersData] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+          let response = await fundraisers();
+          console.log(response);
+          setFundraisersData(response);
+        })();
+      }, []);
+
     return (
         <Container>
             <div>
@@ -57,10 +70,9 @@ const Content = () => {
                 <div style={styles.recentFundraisersSubHeading}>View the fundraisers that are most recently posted</div>
 
                 <div style={styles.recentFundraiserCardsContainer}>
-                    <RecentFundRaiserCards/>
-                    <RecentFundRaiserCards/>
-                    <RecentFundRaiserCards/>
-                    <RecentFundRaiserCards/>
+                    {fundraisersData?.map((fundraiserData, index)=> {
+                        return index<4 ? (<RecentFundRaiserCards fundraiserData={fundraiserData} key={fundraiserData.id}/>): null;
+                    })}
                 </div>
                 <div style={styles.howItWorks} id="howItWorks">
                     Start a Fundraiser in three simple steps

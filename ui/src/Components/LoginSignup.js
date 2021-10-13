@@ -2,7 +2,8 @@ import { TextField, Box, Tab, Button, Snackbar, Alert } from "@mui/material";
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { signup, login } from '../utils/api/services'
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
+import { useParams } from 'react-router';
 
 const styles={
     conatiner: {
@@ -106,10 +107,16 @@ const LoginSignup = (props) => {
         })
     }
 
+    const [donateId, setDonateId] = useState(useParams());
+
     //componentDidMount
     React.useEffect(() => {
         if(localStorage.getItem('token')){
-            history.push(props.onSuccessfulAuth);
+            if(props.onSuccessfulAuth.split('/')[1]==="donate"){
+                history.push(props.onSuccessfulAuth + donateId.id);
+            } else {
+                history.push(props.onSuccessfulAuth);
+            }
         }
     });
 
