@@ -8,6 +8,8 @@ import FundRaisers from './Components/FundRaisers';
 import Donators from './Components/Donators';
 import StartFudraiser from './Components/StartFudraiser';
 import React from 'react';
+import Donate from './Components/Donate';
+import { useHistory } from "react-router-dom";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -58,18 +60,22 @@ const styles = {
 
 function App() {
 
+  const history = useHistory();
   const [authenticated, setAuthenticated] = React.useState(false);
 
   const logout = () => {
     localStorage.clear();
     setAuthenticated(false);
+    history.push("/home");
   }
 
   //componentDidMount
   React.useEffect(() => {
-    if(localStorage.getItem('token')){
-      setAuthenticated(true);
-    }
+    (()=> {
+      if(localStorage.getItem('token')){
+        setAuthenticated(true);
+      }
+    })();
   });
   
 
@@ -80,7 +86,7 @@ function App() {
             <HideOnScroll>
                 <AppBar position="fixed" sx={styles.appbar}>
                     <Toolbar sx={{display: "flex", justifyContent: 'space-between'}}>
-                        <a href="/" style={styles.homeButton}>D Drive</a>
+                        <a href="/home" style={styles.homeButton}>D Drive</a>
                         <div style={styles.navigation}>
                             <a href="/fundraisers" style={styles.navItem}>Browse Fundraisers</a>
                             <a href="/donators" style={styles.navItem}>Browse Donators</a>
@@ -100,11 +106,11 @@ function App() {
             </HideOnScroll>
       
         <Switch>
-          <Route path="/" exact>
+          <Route path="/home" exact>
             <Home/>
           </Route>
           <Route path="/auth" exact>
-            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/"/>
+            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/home"/>
           </Route>
           <Route path="/auth/fundraise" exact>
             <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/fundraise"/>
@@ -118,6 +124,10 @@ function App() {
           <Route path="/fundraise" exact>
             <StartFudraiser/>
           </Route>
+          <Route path="/auth/donate/:id">
+            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/donate/"/>
+          </Route>
+          <Route path="/donate/:id" component={Donate}/>
         </Switch>
       </Router>
     </div>
