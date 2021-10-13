@@ -60,6 +60,7 @@ const Content = () => {
         (async () => {
           let response = await fundraisers();
           console.log(response);
+          response.reverse();
           setFundraisersData(response);
         })();
       }, []);
