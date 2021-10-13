@@ -24,6 +24,13 @@ public class PostsController {
     @Autowired
     PostMapper postMapper;
 
+    @Autowired
+    public PostsController(PostService postService, UserService userService, PostMapper postMapper) {
+        this.postService = postService;
+        this.userService = userService;
+        this.postMapper = postMapper;
+    }
+
     @GetMapping("/api/posts")
     public List<PostDTO> getAllPosts(){
         List<Post> posts = postService.getAllPosts();
