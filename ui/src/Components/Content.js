@@ -8,6 +8,7 @@ import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
 import { fundraisers } from '../utils/api/services';
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 const styles = {
     recentFundraisersHeading: {
@@ -78,7 +79,7 @@ const Content = () => {
                     Start a Fundraiser in three simple steps
                     <HowItWorksTimeline/>
                 </div>
-                <Button variant="contained" style={styles.fundRaiserButton} disableElevation>Start a Fundraiser for FREE</Button>
+                <Button variant="contained" style={styles.fundRaiserButton} disableElevation><Link style={{textDecoration: 'none', color: '#ffffff'}} to="/auth/fundraise">Start a Fundraiser for FREE</Link></Button>
 
                 {/* Causes you can raise fud for */}
                 <div style={styles.causes}>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { startFundraiser } from '../utils/api/services'
 import { LocalizationProvider, DesktopDatePicker} from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { useHistory } from "react-router-dom";
 // import imageToBase64 from "image-to-base64";
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // import { styled } from '@mui/material/styles';
@@ -32,6 +33,7 @@ const styles={
 }
 
 const StartFudraiser = () => {
+    const history = useHistory();
     const [authSuccess, setAuthSuccess] = useState({
         isSuccess: false,
         message: '',
@@ -134,6 +136,7 @@ const StartFudraiser = () => {
                     isSuccess: true,
                     message: "Fundraising started succesfully!",
                 });
+                history.push("/")
             } else {
                 console.log(response);
             }

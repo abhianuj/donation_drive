@@ -9,7 +9,6 @@ import Donators from './Components/Donators';
 import StartFudraiser from './Components/StartFudraiser';
 import React from 'react';
 import Donate from './Components/Donate';
-import { useHistory } from "react-router-dom";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -60,13 +59,11 @@ const styles = {
 
 function App() {
 
-  const history = useHistory();
   const [authenticated, setAuthenticated] = React.useState(false);
 
   const logout = () => {
     localStorage.clear();
     setAuthenticated(false);
-    history.push("/home");
   }
 
   //componentDidMount
@@ -86,7 +83,7 @@ function App() {
             <HideOnScroll>
                 <AppBar position="fixed" sx={styles.appbar}>
                     <Toolbar sx={{display: "flex", justifyContent: 'space-between'}}>
-                        <a href="/home" style={styles.homeButton}>D Drive</a>
+                        <a href="/" style={styles.homeButton}>D Drive</a>
                         <div style={styles.navigation}>
                             <a href="/fundraisers" style={styles.navItem}>Browse Fundraisers</a>
                             <a href="/donators" style={styles.navItem}>Browse Donators</a>
@@ -106,11 +103,11 @@ function App() {
             </HideOnScroll>
       
         <Switch>
-          <Route path="/home" exact>
+          <Route path="/" exact>
             <Home/>
           </Route>
           <Route path="/auth" exact>
-            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/home"/>
+            <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/"/>
           </Route>
           <Route path="/auth/fundraise" exact>
             <LoginSignup setAuthenticated={setAuthenticated} onSuccessfulAuth="/fundraise"/>

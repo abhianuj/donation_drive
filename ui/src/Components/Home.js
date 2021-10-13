@@ -2,6 +2,7 @@ import React from "react";
 import Content from './Content';
 import { Toolbar, Button } from "@mui/material";
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { Link } from 'react-router-dom';
 
 const styles = {
     header_details: {
@@ -62,7 +63,7 @@ const Home = () => {
                     <div style={styles.labelData}>FUNDRAISERS</div>
                 </div>
                 <Button variant="contained" disableElevation sx={styles.fundRaiserButton}>
-                    Start a Fundraiser for FREE
+                    <Link style={{textDecoration: 'none', color: '#ffffff'}} to="/auth/fundraise">Start a Fundraiser for FREE</Link>
                 </Button>
             </div>
             <Toolbar/>
