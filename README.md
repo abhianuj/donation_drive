@@ -14,3 +14,10 @@ Backend
   -junits (unit testing)
 
 Sonar for quality testing.
+
+
+Steps to run the application:
+1. Start the spring boot application.
+2. use the postman collection and signup, then login, and start at least 4 fundraisers.
+3. navigate to the ui folder and run the command npm install
+4. finally use the command npm start to run the UI. (make sure the backend is still running).
