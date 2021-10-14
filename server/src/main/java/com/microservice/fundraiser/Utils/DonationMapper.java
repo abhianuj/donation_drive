@@ -14,6 +14,11 @@ public class DonationMapper {
     @Autowired
     PostMapper postMapper;
 
+    public DonationMapper(UserMapper userMapper, PostMapper postMapper) {
+        this.userMapper = userMapper;
+        this.postMapper = postMapper;
+    }
+
     public DonationDTO toDTO(Donation donation){
         DonationDTO donationDTO = new DonationDTO();
         donationDTO.setId(donation.getId());
