@@ -13,13 +13,13 @@ public class UserMapper {
         userDTO.setEmail(user.getEmail());
         return userDTO;
     }
-    public User toEntity(UserDTO userDTO){
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setToken(userDTO.getToken());
-        user.setToken(userDTO.getToken());
-        return user;
-    }
+//    public User toEntity(UserDTO userDTO){
+//        User user = new User();
+//        user.setEmail(userDTO.getEmail());
+//        user.setFirstName(userDTO.getFirstName());
+//        user.setLastName(userDTO.getLastName());
+//        user.setToken(userDTO.getToken());
+//        user.setToken(userDTO.getToken());
+//        return user;
+//    }
 }

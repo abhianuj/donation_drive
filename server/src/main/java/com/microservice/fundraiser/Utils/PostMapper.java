@@ -12,6 +12,10 @@ public class PostMapper {
     @Autowired
     UserMapper userMapper;
 
+    public PostMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
     public PostDTO toDTO(Post post) {
         PostDTO postDTO = new PostDTO();
         UserDTO userDTO = userMapper.toDTO(post.getNeedy());
