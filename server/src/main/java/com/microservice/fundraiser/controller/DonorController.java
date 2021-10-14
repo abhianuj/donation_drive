@@ -24,6 +24,12 @@ public class DonorController {
     @Autowired
     DonationMapper donationMapper;
 
+    public DonorController(DonationService donationService, UserService userService, DonationMapper donationMapper) {
+        this.donationService = donationService;
+        this.userService = userService;
+        this.donationMapper = donationMapper;
+    }
+
     @GetMapping("/api/donations")
     public List<DonationDTO> getAllDonations(){
         List<DonationDTO> donationDTOS = new ArrayList<>();
