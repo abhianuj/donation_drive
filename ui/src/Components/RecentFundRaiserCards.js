@@ -1,6 +1,6 @@
 import { Card, CardMedia, CardContent, Typography, LinearProgress, Button } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
-import { returnFirstLetter, showIndianStandardCurrency, returnRemainingDaysLeft } from './../utils/formatter';
+import { returnFirstLetter, showIndianStandardCurrency, returnRemainingDaysLeft, donationPerecent } from './../utils/formatter';
 import { useHistory } from "react-router-dom";
 
 const styles = {
@@ -50,9 +50,9 @@ const RecentFundRaiserCards = ({ fundraiserData }) => {
                         <span style={{textTransform: 'capitalize'}}>{fundraiserData.needy.firstName.charAt(0).toUpperCase() + fundraiserData.needy.firstName.slice(1) + ' ' + fundraiserData.needy.lastName}</span>
                     </div>
                     <div style={{marginBottom: '0.2rem'}}>
-                        <span>1,00,000</span> Raised out of {showIndianStandardCurrency(fundraiserData.neededAmount)}
+                        <span>{showIndianStandardCurrency(fundraiserData.totalDonation)}</span> Raised out of {showIndianStandardCurrency(fundraiserData.neededAmount)}
                     </div>
-                    <LinearProgress sx={{height: '0.5rem', borderRadius: '50px', marginTop: '0.4rem'}} variant="determinate" value={70} />
+                    <LinearProgress sx={{height: '0.5rem', borderRadius: '50px', marginTop: '0.4rem'}} variant="determinate" value={donationPerecent(fundraiserData.neededAmount, fundraiserData.totalDonation)} />
                     <div style={{margin: '0.8rem 0 0.5rem 0'}}><span>{returnRemainingDaysLeft(fundraiserData.endDate)}</span> days left</div>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <Button variant="outlined" disableElevation onClick={()=> {donate(fundraiserData.id)}}>Donate</Button>
