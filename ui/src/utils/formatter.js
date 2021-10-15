@@ -1,7 +1,3 @@
-function sum(a, b) {
-    return a + b;
-}
-
 const returnFirstLetter = (data)=>{
     return data.charAt(0).toUpperCase();
 }
@@ -29,7 +25,6 @@ const donationPerecent = (donationNeeded, donationGained) => {
 }
 
 export {
-    sum,
     returnFirstLetter,
     showIndianStandardCurrency,
     returnRemainingDaysLeft,
