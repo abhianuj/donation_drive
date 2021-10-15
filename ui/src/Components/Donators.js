@@ -1,104 +1,19 @@
 import { Container, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
-
-const styles = {
-}
+import React, { useState, useEffect } from "react";
+import { donations } from '../utils/api/services';
+import { returnFirstLetter } from './../utils/formatter';
 
 const Donators = () => {
 
-    const donors = [
-      {
-        id: 2,
-        postDTO: {
-          id: 1,
-          title: "Abhijeet suffering from depression",
-          picture: "iVBORw0KGgoAAAAN",
-          needy: {
-            email: "mukherjee.gourab1998@gmail.com",
-            name: "gourab",
-            token: null,
-          },
-          cause:"Abhijeet is a 2 year boy suffering from severe depression. Please donate atleast 2 lakhs each to save him",
-          neededAmount: 10000000,
-          endDate: "2021-10-10T11:40:27.870+00:00",
-          category: "Children",
-        },
-        donor: {
-          email: "mukherjee.gourab1998@gmail.com",
-          name: "gourab",
-          token: null,
-        },
-        amount: 10,
-      },
-      {
-        id: 2,
-        postDTO: {
-          id: 2,
-          title: "Abhijeet suffering from depression",
-          picture: "iVBORw0KGgoAAAAN",
-          needy: {
-            email: "mukherjee.gourab1998@gmail.com",
-            name: "gourab",
-            token: null,
-          },
-          cause:"Abhijeet is a 2 year boy suffering from severe depression. Please donate atleast 2 lakhs each to save him",
-          neededAmount: 10000000,
-          endDate: "2021-10-10T11:40:27.870+00:00",
-          category: "Children",
-        },
-        donor: {
-          email: "spot.talk@gmail.com",
-          name: "spoty",
-          token: null,
-        },
-        amount: 10,
-      },
-      {
-        id: 2,
-        postDTO: {
-          id: 3,
-          title: "Abhijeet suffering from depression",
-          picture: "iVBORw0KGgoAAAAN",
-          needy: {
-            email: "mukherjee.gourab1998@gmail.com",
-            name: "gourab",
-            token: null,
-          },
-          cause:"Abhijeet is a 2 year boy suffering from severe depression. Please donate atleast 2 lakhs each to save him",
-          neededAmount: 10000000,
-          endDate: "2021-10-10T11:40:27.870+00:00",
-          category: "Children",
-        },
-        donor: {
-          email: "beluga@gmail.com",
-          name: "beluga",
-          token: null,
-        },
-        amount: 10,
-      },
-      {
-        id: 2,
-        postDTO: {
-          id: 4,
-          title: "Abhijeet suffering from depression",
-          picture: "iVBORw0KGgoAAAAN",
-          needy: {
-            email: "mukherjee.gourab1998@gmail.com",
-            name: "gourab",
-            token: null,
-          },
-          cause:"Abhijeet is a 2 year boy suffering from severe depression. Please donate atleast 2 lakhs each to save him",
-          neededAmount: 10000000,
-          endDate: "2021-10-10T11:40:27.870+00:00",
-          category: "Children",
-        },
-        donor: {
-          email: "skittle@gmail.com",
-          name: "skittle",
-          token: null,
-        },
-        amount: 10,
-      }
-    ];
+  const [donorsData, setDonorsData] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let response = await donations();
+      console.log(response);
+      setDonorsData(response);
+    })();
+  }, []);
 
     return (
         <div style={{margin: '8rem 0 0 0'}}>
@@ -116,17 +31,17 @@ const Donators = () => {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {donors.map((row) => (
+                        {donorsData?.map((row) => (
                             <TableRow
                             key={row.postDTO.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                             <TableCell component="th" scope="row">
-                                {row.donor.name}
+                                {returnFirstLetter(row.donor.firstName) + ' ' + returnFirstLetter(row.donor.lastName)}
                             </TableCell>
                             <TableCell align="right">{row.donor.email}</TableCell>
                             <TableCell align="right">{row.amount}</TableCell>
-                            <TableCell align="right">{row.postDTO.needy.name}</TableCell>
+                            <TableCell align="right">{returnFirstLetter(row.postDTO.needy.firstName) + ' ' + returnFirstLetter(row.postDTO.needy.lastName)}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>

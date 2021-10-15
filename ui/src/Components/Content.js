@@ -6,7 +6,7 @@ import ChildFriendlyOutlinedIcon from '@mui/icons-material/ChildFriendlyOutlined
 import CastForEducationOutlinedIcon from '@mui/icons-material/CastForEducationOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import LocalHospitalOutlinedIcon from '@mui/icons-material/LocalHospitalOutlined';
-import { fundraisers } from '../utils/api/services';
+import { fundraisers, donations } from '../utils/api/services';
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
@@ -58,10 +58,23 @@ const Content = () => {
 
     useEffect(() => {
         (async () => {
-          let response = await fundraisers();
-          console.log(response);
-          response.reverse();
-          setFundraisersData(response);
+          let fundraiser = await fundraisers();
+          let donators = await donations();
+          fundraiser.reverse();
+
+          fundraiser.map((element)=> {
+              let totalDonation = 0;
+              donators.forEach((donator)=> {
+                  if(donator.postDTO.id===element.id){
+                    totalDonation += donator.amount;
+                  }
+              })
+              element['totalDonation'] = totalDonation;
+              return element;
+          })
+
+          setFundraisersData(fundraiser);
+
         })();
       }, []);
 

@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import RecentFundRaiserCards from "./RecentFundRaiserCards";
 import React, { useEffect, useState } from "react";
-import { fundraisers } from '../utils/api/services';
+import { fundraisers, donations } from '../utils/api/services';
 
 const styles = {
     fundRaiserCardsContainer: {
@@ -19,12 +19,25 @@ const FundRaisers = () => {
 
     useEffect(() => {
         (async () => {
-          let response = await fundraisers();
-          console.log(response);
-          response.reverse();
-          setFundraisersData(response);
+          let fundraiser = await fundraisers();
+          let donators = await donations();
+          fundraiser.reverse();
+
+          fundraiser.map((element)=> {
+              let totalDonation = 0;
+              donators.forEach((donator)=> {
+                  if(donator.postDTO.id===element.id){
+                    totalDonation += donator.amount;
+                  }
+              })
+              element['totalDonation'] = totalDonation;
+              return element;
+          })
+
+          setFundraisersData(fundraiser);
+
         })();
-    }, []);
+      }, []);
 
     return (
         <div style={{margin: '8rem 0 0 0'}}>

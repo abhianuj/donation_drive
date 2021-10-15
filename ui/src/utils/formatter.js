@@ -17,16 +17,21 @@ const showIndianStandardCurrency = (data) => {
             newData = data.charAt(i) + newData;
         }
     }
-    return newData;
+    return "₹​" + newData;
 }
 
 const returnRemainingDaysLeft = (data)=>{
     return Math.abs(new Date(data.toString()).getDate()-new Date().getDate());
 }
 
+const donationPerecent = (donationNeeded, donationGained) => {
+    return Math.floor((donationGained/donationNeeded)*100);
+}
+
 export {
     sum,
     returnFirstLetter,
     showIndianStandardCurrency,
-    returnRemainingDaysLeft
+    returnRemainingDaysLeft,
+    donationPerecent
 }

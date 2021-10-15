@@ -1,4 +1,4 @@
-const server="http://localhost:8082";
+const server="http://localhost:8080";
 
 const  signup  = async (data)=>{
     const response = await fetch (server + "/api/users", {
@@ -67,7 +67,6 @@ const  fundraisers  = async ()=>{
         mode: 'cors',
     });
 
-    console.log(response.status);
     if(response.status===200){
         return response.json();
     }
@@ -98,10 +97,25 @@ const  sendDonation  = async (id, data, token)=>{
     return response;
 }
 
+const  donations  = async ()=>{
+    const response = await fetch (server + "/api/donations", {
+        method: "GET",
+        mode: 'cors',
+    });
+
+    if(response.status===200){
+        return response.json();
+    }
+    else {
+        return response;
+    }
+}
+
 export {
     signup,
     login,
     startFundraiser,
     fundraisers,
-    sendDonation
+    sendDonation,
+    donations
 }
