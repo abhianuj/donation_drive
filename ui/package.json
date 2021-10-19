@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -33,6 +33,10 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "jest": {
+    "collectCoverage": true,
+    "testResultsProcessor": "jest-sonar-reporter"
   },
   "browserslist": {
     "production": [
