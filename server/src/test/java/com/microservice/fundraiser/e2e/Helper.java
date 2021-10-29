@@ -25,7 +25,7 @@ public class Helper {
 	
 	public void fillLoginFormDataAndSubmit(String email, String password) {
 		driver.findElement(By.cssSelector("div:nth-child(1) > .MuiFormControl-root .MuiInput-input")).sendKeys(email);
-		driver.findElement(By.cssSelector("div:nth-child(3) > .MuiFormControl-root .MuiInput-input")).sendKeys(password);	
+		driver.findElement(By.cssSelector("div:nth-child(3) > .MuiFormControl-root .MuiInput-input")).sendKeys(password);
 		driver.findElement(By.cssSelector("div:nth-child(1) > div:nth-child(4) > button")).click();			
 	}
 	

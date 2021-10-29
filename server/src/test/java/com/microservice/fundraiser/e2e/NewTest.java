@@ -24,14 +24,16 @@ public class NewTest {
 	 }
 	  
 	  @Test(description="Launches the site")
-	  public void launchSite(){
+	  public void launchSite() throws InterruptedException{
 		driver.get("http://localhost:3000");
+		Thread.sleep(5000);
 	    assertEquals(driver.getTitle(), "React App");
 	  }
-	    
+	  
 	  @Test(description="Enters valid login data")
 	  public void validateLoginData() throws Exception {
 		helper.goToLoginForm();
+		Thread.sleep(1000);
 		helper.fillLoginFormDataAndSubmit("mukherjee.gourab1998@gmail.com", "nottellingyou");
 		Thread.sleep(1000);
 		helper.assertLogoutButtonIsPresent();
