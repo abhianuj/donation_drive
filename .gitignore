@@ -25,3 +25,5 @@ yarn-error.log*
 .scannerwork/**
 **/test-report.xml
 **/coverage
+
+server/test-output
