@@ -29,12 +29,6 @@
     "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "jest": {
     "collectCoverage": true,
     "testResultsProcessor": "jest-sonar-reporter"
@@ -52,6 +46,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.5.0",
+    "eslint-plugin-react": "^7.27.1",
     "webdriverio": "^7.14.1"
   }
 }

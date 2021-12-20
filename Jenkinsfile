@@ -1,9 +1,31 @@
 pipeline {
-    agent { docker { image 'maven:3.8.4-openjdk-11-slim' } }
+    agent any
     stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
+        stage('lint') {
+            parallel {
+                stage('Ui Lint') {
+                    agent{
+                        docker { image 'node:16.13.1-alpine' }
+                    }
+                    steps {
+                        dir("ui"){
+                            sh 'npm i -g eslint'
+                            sh 'npx eslint . --fix'
+                        }
+                    }
+                }
+                stage('Server Lint') {
+                    agent{
+                        docker {
+                            image 'maven:3.8.1-adoptopenjdk-11'
+                        }
+                    }
+                    steps {
+                        dir("server"){
+                            sh 'mvn pmd:pmd'
+                        }
+                    }
+                }
             }
         }
     }
