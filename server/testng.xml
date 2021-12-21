@@ -6,10 +6,9 @@
 
 		<parameter name="env" value="QA" />
 		<parameter name="browser" value="chrome" />
-		<parameter name="url" value="https://login.yahoo.com/" />
-		<parameter name="emailId" value="test@yahoo.com" />
 
 		<classes>
+			<class name="com.microservice.fundraiser.e2e.SignUp" />
 			<class name="com.microservice.fundraiser.e2e.NewTest" />
 		</classes>
 
