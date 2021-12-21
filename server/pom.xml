@@ -132,8 +132,8 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                                <!-- Never skip running the tests when the test phase is invoked -->
-                                <skip>false</skip>
+                            <!-- Never skip running the tests when the test phase is invoked -->
+                            <skip>false</skip>
                             <includes>
                                 <include>**/controller/*</include>
                                 <include>**/Utils/*</include>
@@ -154,10 +154,13 @@
                         <configuration>
                             <!-- Never skip running the tests when the integration-test phase is invoked -->
                             <skip>false</skip>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng.xml</suiteXmlFile>
+                            </suiteXmlFiles>
                             <includes>
                             <!-- Include integration tests within integration-test phase. -->
-                                <include>**/e2e/*</include>
-                            </includes>
+                                <!-- <include>**/e2e/*</include> -->
+                            </includes> 
                         </configuration>
                     </execution>
                 </executions>
