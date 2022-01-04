@@ -1,6 +1,13 @@
-const SERVER = 'http://localhost:8080',
-
-    signup = async (data) => {
+let SERVER;
+switch(process.env.NODE_ENV) {
+    case 'production':
+        SERVER = 'http://backend.ingress.gourab-ramp.perftests.shoot.canary.k8s-hana.ondemand.com';
+      break;
+    case 'development':
+    default:
+        SERVER = 'http://localhost:8080';
+}
+let signup = async (data) => {
 
         const response = await fetch(
             `${SERVER}/api/users`,
