@@ -20,6 +20,13 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+          # Use secret in real usage
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: MYSQL_ROOT_PASSWORD
 ---
 apiVersion: apps/v1
 kind: Deployment
