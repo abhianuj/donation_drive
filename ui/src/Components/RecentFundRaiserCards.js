@@ -4,7 +4,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import {donationPerecent, returnFirstLetter, returnRemainingDaysLeft, showIndianStandardCurrency} from './../utils/formatter';
 import {useHistory} from 'react-router-dom';
 import React, {useState} from 'react';
-import {SERVER} from '../utils/api/services';
+import {server} from '../utils/api/services';
 
 const styles = {
         cardContaier: {
@@ -54,7 +54,7 @@ const styles = {
             },
             share = (id) => {
 
-                setShareFundraiserData(`${SERVER}/auth/donate/${id}`);
+                setShareFundraiserData(`${server}/auth/donate/${id}`);
                 setOpenShareDialog('true');
 
             },
