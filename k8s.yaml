@@ -82,7 +82,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: "ui.ingress.gourab-ramp.perftests.shoot.canary.k8s-hana.ondemand.com"
+  - host: "ui.ingress.fundraiser.i524895.shoot.canary.k8s-hana.ondemand.com"
     http:
       paths:
       - path: /
@@ -92,7 +92,7 @@ spec:
             name: ui
             port:
               number: 80
-  - host: "backend.ingress.gourab-ramp.perftests.shoot.canary.k8s-hana.ondemand.com"
+  - host: "backend.ingress.fundraiser.i524895.shoot.canary.k8s-hana.ondemand.com"
     http:
       paths:
       - path: /

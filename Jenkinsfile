@@ -9,8 +9,9 @@ pipeline {
                     }
                     steps {
                         dir("ui"){
-                            sh 'npm i -g eslint'
-                            sh 'npx eslint . --fix'
+                            sh 'npm install -g eslint'
+                            sh 'npm install eslint-plugin-react --save-dev'
+                            sh 'eslint . --fix'
                         }
                     }
                 }
