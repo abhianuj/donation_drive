@@ -1,28 +1,31 @@
-const returnFirstLetter = (data)=>{
-    return data.charAt(0).toUpperCase();
-}
+const returnFirstLetter = (data) => data.charAt(0).toUpperCase(),
 
-const showIndianStandardCurrency = (data) => {
-    data = data.toString();
-    let newData='';
-    let i = data.length;
-    while(i--){
-        if(i-(data.length-4)===0 || (newData.includes(',') && i%2===0)){
-            newData = data.charAt(i) + ',' + newData;
-        } else {
-            newData = data.charAt(i) + newData;
+    showIndianStandardCurrency = (data) => {
+
+        data = data.toString();
+        let newData = '',
+            i = data.length;
+        while (i--) {
+
+            if (i - (data.length - 4) === 0 || newData.includes(',') && i % 2 === 0) {
+
+                newData = `${data.charAt(i)},${newData}`;
+
+            } else {
+
+                newData = data.charAt(i) + newData;
+
+            }
+
         }
-    }
-    return "₹​" + newData;
-}
+        // eslint-disable-next-line no-irregular-whitespace
+        return `₹​${newData}`;
 
-const returnRemainingDaysLeft = (data)=>{
-    return Math.abs(new Date(data.toString()).getDate()-new Date().getDate());
-}
+    },
 
-const donationPerecent = (donationNeeded, donationGained) => {
-    return Math.floor((donationGained/donationNeeded)*100);
-}
+    returnRemainingDaysLeft = (data) => Math.abs(new Date(data.toString()).getDate() - new Date().getDate()),
+
+    donationPerecent = (donationNeeded, donationGained) => Math.floor(donationGained / donationNeeded * 100)
 
 export {
     returnFirstLetter,
