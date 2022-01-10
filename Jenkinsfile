@@ -39,6 +39,7 @@ pipeline {
                         dir("ui"){
                             sh 'npm install'
                             sh 'npm run test'
+                            stash includes: 'coverage/**', name: 'uiunit'
                         }
                     }
                 }
@@ -51,6 +52,7 @@ pipeline {
                     steps {
                         dir("server"){
                             sh 'mvn test'
+                            stash includes: 'target/**', name: 'serverunit'
                         }
                     }
                 }
