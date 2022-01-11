@@ -25,4 +25,6 @@ Description: A simple webapp where users can create a donation campaign for the 
 3. Navigate to the ui folder and run the command npm install
 4. Finally use the command npm start to run the UI. (make sure the backend is still running).
 
-For detailed documentation [click here!](https://github.com/abhianuj/donation_drive/blob/main/Devops%20Documentation.pdf)
+Devops Project PART A [click here!](Devops%20Documentation%20-%20PART%20A.pdf)
+
+Devops Project PART B [click here!](Devops%20Documentation%20-%20PART%20B.pdf)
