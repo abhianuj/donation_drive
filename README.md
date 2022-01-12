@@ -28,3 +28,5 @@ Description: A simple webapp where users can create a donation campaign for the 
 Devops Project PART A [click here!](Devops%20Documentation%20-%20PART%20A.pdf)
 
 Devops Project PART B [click here!](Devops%20Documentation%20-%20PART%20B.pdf)
+
+Devops Critique Report [click here!](Devops%20Critique%20Report.pdf)
